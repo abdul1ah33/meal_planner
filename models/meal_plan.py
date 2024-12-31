@@ -8,7 +8,7 @@ class MealPlan(db.Model):
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    meals = db.Column(db.Text, nullable=False)  # JSON string mapping days to recipes
+    meals = db.Column(db.Text, nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
