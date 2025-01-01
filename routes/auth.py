@@ -23,15 +23,18 @@ def signup():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        email = request.form.get('email')
+        password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
+
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             flash('Login successful!', 'success')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main.index'))  # Correct redirect here
         else:
             flash('Invalid email or password', 'danger')
+            return redirect(url_for('auth.login'))  # Stay on login page for errors
+
     return render_template('auth/login.html')
 
 @auth_bp.route('/logout')

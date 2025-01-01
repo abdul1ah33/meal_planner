@@ -7,6 +7,7 @@ import os
 # Load environment variables
 load_dotenv()
 
+# Initialize Flask app
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'default_secret_key')  # Use a secure key
 
@@ -14,8 +15,11 @@ app.secret_key = os.getenv('SECRET_KEY', 'default_secret_key')  # Use a secure k
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meal_planner.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize database and migration tools
-db = SQLAlchemy(app)
+# Import db and initialize with app
+from models import db, init_db
+init_db(app)
+
+# Initialize migration tools
 migrate = Migrate(app, db)
 
 # Import blueprints
