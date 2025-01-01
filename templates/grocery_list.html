@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Grocery List</h1>
+<ul>
+    {% for item in grocery_list.items %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
+{% endblock %}
+
