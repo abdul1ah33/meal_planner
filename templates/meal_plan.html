@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create Your Meal Plan</h1>
+<form method="POST" action="{{ url_for('meal_plan.plan') }}">
+    <h2>Select Meals for the Week:</h2>
+    <div>
+        {% for recipe in recipes %}
+        <div>
+            <input type="checkbox" id="recipe_{{ recipe.id }}" name="meals" value="{{ recipe.id }}">
+            <label for="recipe_{{ recipe.id }}">{{ recipe.title }}</label>
+        </div>
+        {% endfor %}
+    </div>
+    <button type="submit">Save Meal Plan</button>
+</form>
+{% endblock %}
+
