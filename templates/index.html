@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to the Meal Planner!</h1>
+<p>Plan your meals for the week and generate a grocery list in just a few clicks.</p>
+<a href="{{ url_for('auth.signup') }}" class="button">Get Started</a>
+{% endblock %}
