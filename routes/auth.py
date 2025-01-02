@@ -30,7 +30,7 @@ def login():
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             flash('Login successful!', 'success')
-            return redirect(url_for('main.index'))  # Correct redirect here
+            return redirect(url_for('meal_plan.plan'))  # Correct redirect here
         else:
             flash('Invalid email or password', 'danger')
             return redirect(url_for('auth.login'))  # Stay on login page for errors
