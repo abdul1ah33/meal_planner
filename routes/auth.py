@@ -28,27 +28,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password, password):
-abdullah@Abdullah:~/meal_planner$ flask db migrate -m "Initial migration"
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-INFO  [alembic.env] No changes in schema detected.
-abdullah@Abdullah:~/meal_planner$ flask db upgrade
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-abdullah@Abdullah:~/meal_planner$ flask db migrate -m "Initial migration"
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-INFO  [alembic.env] No changes in schema detected.
-abdullah@Abdullah:~/meal_planner$ flask db upgrade
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-abdullah@Abdullah:~/meal_planner$ sqlite3 instance/meal_planner.db "SELECT name FROM sqlite_master WHERE type='table';"
-alembic_version
-users
-recipes
-meal_plans
-grocery_lists
-abdullah@Abdullah:~/meal_planner$            session['user_id'] = user.id
+            session['user_id'] = user.id
             flash('Login successful!', 'success')
             return redirect(url_for('main.index'))  # Correct redirect here
         else:
