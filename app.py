@@ -26,11 +26,13 @@ migrate = Migrate(app, db)
 from routes.auth import auth_bp
 from routes.main import main_bp
 from routes.meal_plan import meal_plan_bp  # Import the meal_plan blueprint
+from routes.grocery_list import grocery_list_bp  # Import the grocery_list blueprint
 
 # Register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(main_bp)
-app.register_blueprint(meal_plan_bp, url_prefix='/meal-plan')  # Register the meal_plan blueprint
+app.register_blueprint(meal_plan_bp, url_prefix='/meal-plan')
+app.register_blueprint(grocery_list_bp, url_prefix='/grocery-list')
 
 if __name__ == '__main__':
     app.run(debug=True)
