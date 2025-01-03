@@ -1,13 +1,22 @@
-<form method="POST" action="{{ url_for('meal_plan.plan') }}">
-    <h2>Select Meals for the Week:</h2>
-    <div>
-        {% for recipe in recipes %}
-        <div>
-            <input type="checkbox" id="recipe_{{ recipe.id }}" name="meals" value="{{ recipe.id }}">
-            <label for="recipe_{{ recipe.id }}">{{ recipe.title }}</label>
-        </div>
-        {% endfor %}
-    </div>
-    <button type="submit">Generate Grocery List</button>
-</form>
+{% extends 'base.html' %}
 
+{% block content %}
+<div class="container">
+    <h2>Your Meal Plan</h2>
+    
+    <a href="{{ url_for('meal_plan.add_recipe') }}" class="button">Add New Recipe</a>
+    
+    <form method="POST" action="{{ url_for('meal_plan.plan') }}">
+        <h3>Select Meals for the Week:</h3>
+        <div class="recipe-list">
+            {% for recipe in recipes %}
+            <div class="recipe-item">
+                <input type="checkbox" id="recipe_{{ recipe.id }}" name="meals" value="{{ recipe.id }}">
+                <label for="recipe_{{ recipe.id }}">{{ recipe.title }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="button">Generate Grocery List</button>
+    </form>
+</div>
+{% endblock %}

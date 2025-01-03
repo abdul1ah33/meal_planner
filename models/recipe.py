@@ -6,11 +6,13 @@ class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    ingredients = db.Column(db.Text, nullable=False)  # New column to store ingredients
-
-    # Foreign key to users table
+    ingredients = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    @property
+    def ingredients_list(self):
+        """Return ingredients as a list"""
+        return [i.strip() for i in self.ingredients.split(',')]
 
     def __repr__(self):
         return f"<Recipe {self.title}>"
-

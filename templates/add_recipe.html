@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Add New Recipe</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="{{ url_for('meal_plan.add_recipe') }}">
+        <div class="form-group">
+            <label for="title">Recipe Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description (optional):</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="ingredients">Ingredients (comma-separated):</label>
+            <textarea id="ingredients" name="ingredients" required 
+                      placeholder="Example: tomatoes, cheese, flour"></textarea>
+        </div>
+        
+        <button type="submit" class="button">Save Recipe</button>
+        <a href="{{ url_for('meal_plan.plan') }}" class="button secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
