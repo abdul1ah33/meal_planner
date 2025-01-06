@@ -2,21 +2,83 @@
 
 {% block content %}
 <div class="container">
-    <h2>Your Meal Plan</h2>
+    <h2>Weekly Meal Plan</h2>
     
     <a href="{{ url_for('meal_plan.add_recipe') }}" class="button">Add New Recipe</a>
     
     <form method="POST" action="{{ url_for('meal_plan.plan') }}">
-        <h3>Select Meals for the Week:</h3>
-        <div class="recipe-list">
-            {% for recipe in recipes %}
-            <div class="recipe-item">
-                <input type="checkbox" id="recipe_{{ recipe.id }}" name="meals" value="{{ recipe.id }}">
-                <label for="recipe_{{ recipe.id }}">{{ recipe.title }}</label>
+        <input type="date" name="week_start" value="{{ week_start }}" required>
+        
+        {% for day in range(7) %}
+        <div class="day-plan">
+            <h3>Day {{ day + 1 }}</h3>
+            
+            <div class="meal-type">
+                <h4>Breakfast</h4>
+                <select name="day{{ day }}_breakfast">
+                    <option value="">Select meal</option>
+                    {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            {% endfor %}
+            
+            <div class="meal-type">
+                <h4>Lunch</h4>
+                <select name="day{{ day }}_lunch">
+                    <option value="">Select meal</option>
+                    {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="meal-type">
+                <h4>Dinner</h4>
+                <select name="day{{ day }}_dinner">
+                    <option value="">Select meal</option>
+                    {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
+        {% endfor %}
+        
+        <div class="grocery-options">
+            <h3>Grocery List Options</h3>
+            <select name="day_filter">
+                <option value="all">All days combined</option>
+                {% for day in range(7) %}
+                <option value="{{ day }}">Day {{ day + 1 }} only</option>
+                {% endfor %}
+            </select>
+        </div>
+        
         <button type="submit" class="button">Generate Grocery List</button>
     </form>
 </div>
+
+<style>
+.day-plan {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.meal-type {
+    margin: 10px 0;
+}
+
+.meal-type select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.grocery-options {
+    margin: 20px 0;
+}
+</style>
 {% endblock %}
