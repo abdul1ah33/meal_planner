@@ -9,13 +9,29 @@
     <h3>For All Days</h3>
     {% endif %}
 
-    <ul class="grocery-list">
+    <div class="list-actions">
+        <input type="text" id="newIngredient" placeholder="Add new ingredient">
+        <button onclick="addNewIngredient()" class="button">Add</button>
+        
+        <div class="save-section">
+            <input type="text" id="listName" placeholder="List name">
+            <button onclick="saveGroceryList()" class="button">Save List</button>
+        </div>
+    </div>
+
+    <ul id="groceryList" class="grocery-list">
         {% for item in ingredients %}
-        <li>{{ item }}</li>
+        <li>
+            <span class="ingredient-name">{{ item }}</span>
+            <button onclick="removeIngredient(this)" class="remove-btn">✕</button>
+        </li>
         {% endfor %}
     </ul>
 
-    <a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
+    <div class="navigation-buttons">
+        <a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
+        <a href="{{ url_for('grocery_list.view_saved_lists') }}" class="button">View Saved Lists</a>
+    </div>
 </div>
 
 <style>
@@ -27,10 +43,91 @@
 .grocery-list li {
     padding: 8px;
     border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.grocery-list li:last-child {
-    border-bottom: none;
+.remove-btn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.list-actions {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.save-section {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.navigation-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
 </style>
+
+<script>
+function addNewIngredient() {
+    const input = document.getElementById('newIngredient');
+    const ingredient = input.value.trim();
+    
+    if (!ingredient) return;
+    
+    fetch('/grocery-list/add-ingredient', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `ingredient=${encodeURIComponent(ingredient)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ingredient) {
+            const list = document.getElementById('groceryList');
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="ingredient-name">${data.ingredient}</span>
+                <button onclick="removeIngredient(this)" class="remove-btn">✕</button>
+            `;
+            list.appendChild(li);
+            input.value = '';
+        }
+    });
+}
+
+function removeIngredient(button) {
+    button.parentElement.remove();
+}
+
+function saveGroceryList() {
+    const ingredients = Array.from(document.querySelectorAll('.ingredient-name'))
+        .map(span => span.textContent);
+    const listName = document.getElementById('listName').value.trim() || null;
+    
+    fetch('/grocery-list/save-list', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `list_name=${encodeURIComponent(listName || '')}&` + 
+              ingredients.map(i => `ingredients[]=${encodeURIComponent(i)}`).join('&')
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('List saved successfully!');
+        }
+    });
+}
+</script>
 {% endblock %}
