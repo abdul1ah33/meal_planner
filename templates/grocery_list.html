@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Grocery List</h1>
-<ul>
-    {% for item in ingredients %}
-    <li>{{ item }}</li>
-    {% endfor %}
-</ul>
-<a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
-{% endblock %}
+<div class="container">
+    <h1>Grocery List</h1>
+    {% if day_filter != 'all' %}
+    <h3>For Day {{ day_filter|int + 1 }}</h3>
+    {% else %}
+    <h3>For All Days</h3>
+    {% endif %}
 
+    <ul class="grocery-list">
+        {% for item in ingredients %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
+</div>
+
+<style>
+.grocery-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.grocery-list li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.grocery-list li:last-child {
+    border-bottom: none;
+}
+</style>
+{% endblock %}
