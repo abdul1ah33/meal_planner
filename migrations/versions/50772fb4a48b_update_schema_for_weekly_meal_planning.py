@@ -1,8 +1,8 @@
 """Update schema for weekly meal planning
 
-Revision ID: a84af6926afd
+Revision ID: 50772fb4a48b
 Revises: 
-Create Date: 2025-01-07 17:50:16.550975
+Create Date: 2025-01-07 17:54:13.239802
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a84af6926afd'
+revision = '50772fb4a48b'
 down_revision = None
 branch_labels = None
 depends_on = None
