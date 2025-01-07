@@ -1,8 +1,8 @@
-"""Add SavedGroceryList model
+"""Update schema for weekly meal planning
 
-Revision ID: d43d2140d0dd
+Revision ID: a84af6926afd
 Revises: 
-Create Date: 2025-01-07 01:20:17.953921
+Create Date: 2025-01-07 17:50:16.550975
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd43d2140d0dd'
+revision = 'a84af6926afd'
 down_revision = None
 branch_labels = None
 depends_on = None

@@ -59,6 +59,7 @@
         <a href="{{ url_for('main.index') }}">Home</a>
         {% if session.get('user_id') %}
             <a href="{{ url_for('meal_plan.plan') }}">Meal Plan</a>
+	    <a href="{{ url_for('feedback.index') }}">Feedback</a>
             <a href="{{ url_for('auth.logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('auth.login') }}">Login</a>
