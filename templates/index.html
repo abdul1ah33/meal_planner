@@ -1,7 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to the Meal Planner!</h1>
-<p>Plan your meals for the week and generate a grocery list in just a few clicks.</p>
-<a href="{{ url_for('auth.signup') }}" class="button">Get Started</a>
+<div class="text-center my-5">
+    <h1 class="display-4">Welcome to the Meal Planner!</h1>
+    <p class="lead">Plan your meals for the week and generate a grocery list in just a few clicks.</p>
+    <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-lg mt-3">Get Started</a>
+</div>
+
+<!-- Optional Features Section -->
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <div class="card border-0">
+            <img src="{{ url_for('static', filename='images/mealplanner.png') }}" alt="Meal Planning" class="card-img-top rounded">
+            <div class="card-body">
+                <h5 class="card-title">Easy Meal Planning</h5>
+                <p class="card-text">Organize your meals for the week effortlessly with our intuitive planner.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0">
+            <img src="{{ url_for('static', filename='images/Grocery List.png') }}" alt="Grocery List" class="card-img-top rounded">
+            <div class="card-body">
+                <h5 class="card-title">Grocery List Generator</h5>
+                <p class="card-text">Create a complete grocery list based on your meal plan with one click.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0">
+            <img src="{{ url_for('static', filename='images/Healthy Recipes.png') }}" alt="Healthy Recipes" class="card-img-top rounded">
+            <div class="card-body">
+                <h5 class="card-title">Healthy Recipes</h5>
+                <p class="card-text">Access a wide variety of healthy and delicious recipes to suit your diet.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
