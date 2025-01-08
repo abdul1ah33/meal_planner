@@ -1,84 +1,107 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Weekly Meal Plan</h2>
-    
-    <a href="{{ url_for('meal_plan.add_recipe') }}" class="button">Add New Recipe</a>
-    
+<div class="container my-5">
+    <h2 class="text-center mb-4">Weekly Meal Plan</h2>
+
+    <!-- Add Recipe Button -->
+    <div class="text-end mb-3">
+        <a href="{{ url_for('meal_plan.add_recipe') }}" class="btn btn-success btn-lg">+ Add New Recipe</a>
+    </div>
+
+    <!-- Meal Plan Form -->
     <form method="POST" action="{{ url_for('meal_plan.plan') }}">
-        <input type="date" name="week_start" value="{{ week_start }}" required>
-        
-        {% for day in range(7) %}
-        <div class="day-plan">
-            <h3>Day {{ day + 1 }}</h3>
-            
-            <div class="meal-type">
-                <h4>Breakfast</h4>
-                <select name="day{{ day }}_breakfast">
-                    <option value="">Select meal</option>
-                    {% for recipe in recipes %}
-                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <div class="meal-type">
-                <h4>Lunch</h4>
-                <select name="day{{ day }}_lunch">
-                    <option value="">Select meal</option>
-                    {% for recipe in recipes %}
-                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <div class="meal-type">
-                <h4>Dinner</h4>
-                <select name="day{{ day }}_dinner">
-                    <option value="">Select meal</option>
-                    {% for recipe in recipes %}
-                    <option value="{{ recipe.id }}">{{ recipe.title }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <!-- Week Start Date -->
+        <div class="mb-4">
+            <label for="week_start" class="form-label fw-bold">Start of the Week</label>
+            <input type="date" id="week_start" name="week_start" value="{{ week_start }}" class="form-control" required>
         </div>
-        {% endfor %}
-        
-        <div class="grocery-options">
-            <h3>Grocery List Options</h3>
-            <select name="day_filter">
+
+        <!-- Day Plans -->
+        <div class="row g-4">
+            {% for day in range(7) %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5>Day {{ day + 1 }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Breakfast -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Breakfast</label>
+                            <select name="day{{ day }}_breakfast" class="form-select">
+                                <option value="">Select meal</option>
+                                {% for recipe in recipes %}
+                                <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Lunch -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Lunch</label>
+                            <select name="day{{ day }}_lunch" class="form-select">
+                                <option value="">Select meal</option>
+                                {% for recipe in recipes %}
+                                <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Dinner -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Dinner</label>
+                            <select name="day{{ day }}_dinner" class="form-select">
+                                <option value="">Select meal</option>
+                                {% for recipe in recipes %}
+                                <option value="{{ recipe.id }}">{{ recipe.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Grocery List Options -->
+        <div class="my-5">
+            <h3 class="mb-3">Grocery List Options</h3>
+            <select name="day_filter" class="form-select">
                 <option value="all">All days combined</option>
                 {% for day in range(7) %}
                 <option value="{{ day }}">Day {{ day + 1 }} only</option>
                 {% endfor %}
             </select>
         </div>
-        
-        <button type="submit" class="button">Generate Grocery List</button>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Generate Grocery List</button>
+        </div>
     </form>
 </div>
 
 <style>
-.day-plan {
-    margin: 20px 0;
+/* Responsive Card Styling */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 10px;
+}
+
+.card-body {
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
-.meal-type {
-    margin: 10px 0;
+.form-label {
+    font-size: 1rem;
 }
 
-.meal-type select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-}
-
-.grocery-options {
-    margin: 20px 0;
+.btn-lg {
+    font-size: 1.2rem;
+    padding: 10px 20px;
 }
 </style>
 {% endblock %}
