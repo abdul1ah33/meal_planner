@@ -8,6 +8,7 @@ class Recipe(db.Model):
     description = db.Column(db.Text, nullable=True)
     ingredients = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    meal_type = db.Column(db.String(20), nullable=False)  # 'breakfast', 'lunch', or 'dinner'
 
     @property
     def ingredients_list(self):
