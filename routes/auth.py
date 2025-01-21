@@ -24,6 +24,7 @@ def login():
 
     return render_template('auth/login.html')
 
+
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     """Handle user registration"""
@@ -56,6 +57,7 @@ def signup():
                     title=recipe_data["title"],
                     description=recipe_data["description"],
                     ingredients=recipe_data["ingredients"],
+                    meal_type=recipe_data["meal_type"],  # Make sure meal_type is included
                     user_id=new_user.id
                 )
                 db.session.add(recipe)
