@@ -13,7 +13,11 @@ def plan():
         return redirect(url_for('auth.login'))
 
     user_id = session['user_id']
-    recipes = Recipe.query.filter_by(user_id=user_id).all()
+    
+    # Get recipes grouped by meal type
+    breakfast_recipes = Recipe.query.filter_by(user_id=user_id, meal_type='breakfast').all()
+    lunch_recipes = Recipe.query.filter_by(user_id=user_id, meal_type='lunch').all()
+    dinner_recipes = Recipe.query.filter_by(user_id=user_id, meal_type='dinner').all()
 
     if request.method == 'POST':
         meals_data = {}
@@ -58,7 +62,9 @@ def plan():
     next_monday = today + timedelta(days=days_ahead)
     
     return render_template('meal_plan.html', 
-                         recipes=recipes,
+                         breakfast_recipes=breakfast_recipes,
+                         lunch_recipes=lunch_recipes,
+                         dinner_recipes=dinner_recipes,
                          week_start=next_monday)
 
 @meal_plan_bp.route('/add_recipe', methods=['GET', 'POST'])
@@ -72,16 +78,18 @@ def add_recipe():
         title = request.form.get('title')
         description = request.form.get('description')
         ingredients = request.form.get('ingredients')
+        meal_type = request.form.get('meal_type')
         user_id = session['user_id']
 
-        if not title or not ingredients:
-            flash('Title and ingredients are required', 'error')
+        if not title or not ingredients or not meal_type:
+            flash('Title, ingredients, and meal type are required', 'error')
             return redirect(url_for('meal_plan.add_recipe'))
 
         new_recipe = Recipe(
             title=title,
             description=description,
             ingredients=ingredients,
+            meal_type=meal_type,
             user_id=user_id
         )
 
