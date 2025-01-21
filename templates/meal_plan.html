@@ -30,8 +30,8 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold">Breakfast</label>
                             <select name="day{{ day }}_breakfast" class="form-select">
-                                <option value="">Select meal</option>
-                                {% for recipe in recipes %}
+                                <option value="">Select breakfast</option>
+                                {% for recipe in breakfast_recipes %}
                                 <option value="{{ recipe.id }}">{{ recipe.title }}</option>
                                 {% endfor %}
                             </select>
@@ -40,8 +40,8 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold">Lunch</label>
                             <select name="day{{ day }}_lunch" class="form-select">
-                                <option value="">Select meal</option>
-                                {% for recipe in recipes %}
+                                <option value="">Select lunch</option>
+                                {% for recipe in lunch_recipes %}
                                 <option value="{{ recipe.id }}">{{ recipe.title }}</option>
                                 {% endfor %}
                             </select>
@@ -50,8 +50,8 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold">Dinner</label>
                             <select name="day{{ day }}_dinner" class="form-select">
-                                <option value="">Select meal</option>
-                                {% for recipe in recipes %}
+                                <option value="">Select dinner</option>
+                                {% for recipe in dinner_recipes %}
                                 <option value="{{ recipe.id }}">{{ recipe.title }}</option>
                                 {% endfor %}
                             </select>

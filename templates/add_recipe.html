@@ -15,22 +15,31 @@
     <form method="POST" action="{{ url_for('meal_plan.add_recipe') }}">
         <div class="form-group">
             <label for="title">Recipe Title:</label>
-            <input type="text" id="title" name="title" required>
+            <input type="text" id="title" name="title" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="meal_type">Meal Type:</label>
+            <select id="meal_type" name="meal_type" required class="form-control">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
         </div>
         
         <div class="form-group">
             <label for="description">Description (optional):</label>
-            <textarea id="description" name="description"></textarea>
+            <textarea id="description" name="description" class="form-control"></textarea>
         </div>
         
         <div class="form-group">
             <label for="ingredients">Ingredients (comma-separated):</label>
-            <textarea id="ingredients" name="ingredients" required 
+            <textarea id="ingredients" name="ingredients" required class="form-control"
                       placeholder="Example: tomatoes, cheese, flour"></textarea>
         </div>
         
-        <button type="submit" class="button">Save Recipe</button>
-        <a href="{{ url_for('meal_plan.plan') }}" class="button secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Save Recipe</button>
+        <a href="{{ url_for('meal_plan.plan') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}
