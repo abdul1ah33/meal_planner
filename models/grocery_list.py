@@ -12,4 +12,5 @@ class GroceryList(db.Model):
 
     def __repr__(self):
         return f"<GroceryList for MealPlan {self.meal_plan_id}>"
+    
 
