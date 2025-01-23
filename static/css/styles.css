@@ -1,135 +1,130 @@
-/* General Styles */
+/* Custom CSS for better layout */
+:root {
+  --main-green: #198754;
+  --light-green: #e8f5e9;
+  --hover-green: #157347;
+}
+
+/* General styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f8f9fa;
 }
 
-/* Main Content */
-main {
-    flex: 1; /* Allow main content to grow and push footer to the bottom */
-}
-
-/* Navigation Bar */
+/* Navbar enhancements */
 .navbar {
-    margin-bottom: 20px;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    font-weight: bold;
+.navbar-brand img {
+  transition: transform 0.3s ease;
 }
 
-.navbar-nav .nav-link {
-    color: white !important;
-    margin: 0 10px;
+.navbar-brand:hover img {
+  transform: scale(1.1);
 }
 
-.navbar-nav .nav-link:hover {
-    color: #ff6347 !important; /* Tomato color for hover */
+.nav-link {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: auto; /* Push footer to the bottom */
+.nav-link:hover {
+  transform: translateY(-1px);
 }
 
-/* Forms */
-.form-group {
-    margin-bottom: 20px;
+/* Button styles */
+.btn-success {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(25, 135, 84, 0.2);
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+  background-color: var(--hover-green);
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+/* Main content area */
+main {
+  min-height: calc(100vh - 160px);
+  padding: 2rem 0;
 }
 
-/* Buttons */
-.button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
+.container {
+  max-width: 1140px;
+  padding: 0 1.5rem;
 }
 
-.button:hover {
-    background-color: #0056b3;
+/* Card enhancements */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Alerts */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Alert styles */
 .alert {
-    margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
 }
 
-
-/* Login Page Styles */
-.login-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Footer enhancements */
+footer {
+  background: linear-gradient(45deg, var(--main-green), var(--hover-green));
+  padding: 2rem 0;
 }
 
-.login-form h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
+footer a {
+  transition: opacity 0.3s ease;
 }
 
-.login-form .form-control {
-    margin-bottom: 15px;
+footer a:hover {
+  opacity: 0.8;
 }
 
-.login-form .btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
+/* Form elements */
+.form-control {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
 }
 
-/* Signup Page Styles */
-.signup-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+  border-color: var(--main-green);
 }
 
-.signup-form h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.signup-form .form-control {
-    margin-bottom: 15px;
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
 }
 
-.signup-form .btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 0;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
 }
