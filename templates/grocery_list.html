@@ -1,79 +1,117 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>Grocery List</h1>
-    {% if day_filter != 'all' %}
-    <h3>For Day {{ day_filter|int + 1 }}</h3>
-    {% else %}
-    <h3>For All Days</h3>
-    {% endif %}
-
-    <div class="list-actions">
-        <input type="text" id="newIngredient" placeholder="Add new ingredient">
-        <button onclick="addNewIngredient()" class="button">Add</button>
-        
-        <div class="save-section">
-            <input type="text" id="listName" placeholder="List name">
-            <button onclick="saveGroceryList()" class="button">Save List</button>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-success">
+            <i class="bi bi-cart3 me-2"></i>Grocery List
+        </h1>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('grocery_list.view_saved_lists') }}" 
+               class="btn btn-outline-success">
+                <i class="bi bi-archive me-2"></i>Saved Lists
+            </a>
+            <a href="{{ url_for('meal_plan.plan') }}" 
+               class="btn btn-outline-success">
+                <i class="bi bi-arrow-left me-2"></i>Back to Plan
+            </a>
         </div>
     </div>
 
-    <ul id="groceryList" class="grocery-list">
-        {% for item in ingredients %}
-        <li>
-            <span class="ingredient-name">{{ item }}</span>
-            <button onclick="removeIngredient(this)" class="remove-btn">✕</button>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-center mb-4">
+                <div class="col-md-4">
+                    <input type="text" id="newIngredient" 
+                           class="form-control form-control-lg" 
+                           placeholder="Add new ingredient...">
+                </div>
+                <div class="col-md-2">
+                    <button onclick="addNewIngredient()" 
+                            class="btn btn-success btn-lg w-100">
+                        <i class="bi bi-plus-lg"></i> Add
+                    </button>
+                </div>
+            </div>
 
-    <div class="navigation-buttons">
-        <a href="{{ url_for('meal_plan.plan') }}" class="button">Back to Meal Plan</a>
-        <a href="{{ url_for('grocery_list.view_saved_lists') }}" class="button">View Saved Lists</a>
+            <div id="groceryList" class="list-group">
+                {% for item in ingredients %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="ingredient-name">{{ item }}</span>
+                    <button onclick="removeIngredient(this)" 
+                            class="btn btn-link text-danger p-0">
+                        <i class="bi bi-trash3 fs-5"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-4">
+                <i class="bi bi-save me-2"></i>Save List
+            </h5>
+            <div class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    <input type="text" id="listName" 
+                           class="form-control" 
+                           placeholder="My Shopping List">
+                </div>
+                <div class="col-md-2">
+                    <button onclick="saveGroceryList()" 
+                            class="btn btn-success w-100">
+                        <i class="bi bi-save me-2"></i>Save
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-.grocery-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.grocery-list li {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.remove-btn {
-    background: none;
-    border: none;
-    color: red;
-    cursor: pointer;
-    padding: 0 8px;
-}
-
-.list-actions {
-    margin: 20px 0;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.save-section {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-.navigation-buttons {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-}
+    .list-group-item {
+        transition: all 0.2s ease;
+        border-radius: 8px !important;
+        margin-bottom: 8px;
+        overflow: hidden;
+    }
+    
+    .list-group-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        margin-right: 5px;
+    }
+    
+    #groceryList {
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        padding: 1rem;
+    }
+    
+    .btn-success {
+        background: #198754;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-success:hover {
+        background: #157347;
+        transform: translateY(-2px);
+    }
+    
+    .btn-outline-success {
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
 </style>
 
 <script>
@@ -83,49 +121,56 @@ function addNewIngredient() {
     
     if (!ingredient) return;
     
-    fetch('/grocery-list/add-ingredient', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `ingredient=${encodeURIComponent(ingredient)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ingredient) {
-            const list = document.getElementById('groceryList');
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <span class="ingredient-name">${data.ingredient}</span>
-                <button onclick="removeIngredient(this)" class="remove-btn">✕</button>
-            `;
-            list.appendChild(li);
-            input.value = '';
-        }
-    });
+    const listItem = document.createElement('div');
+    listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+    listItem.innerHTML = `
+        <span class="ingredient-name">${ingredient}</span>
+        <button onclick="removeIngredient(this)" 
+                class="btn btn-link text-danger p-0">
+            <i class="bi bi-trash3 fs-5"></i>
+        </button>
+    `;
+    
+    document.getElementById('groceryList').appendChild(listItem);
+    input.value = '';
+    input.focus();
 }
 
 function removeIngredient(button) {
-    button.parentElement.remove();
+    button.closest('.list-group-item').classList.add('fade-out');
+    setTimeout(() => {
+        button.closest('.list-group-item').remove();
+    }, 300);
 }
 
 function saveGroceryList() {
     const ingredients = Array.from(document.querySelectorAll('.ingredient-name'))
-        .map(span => span.textContent);
-    const listName = document.getElementById('listName').value.trim() || null;
+        .map(span => span.textContent.trim());
+    const listName = document.getElementById('listName').value.trim() || 'My Shopping List';
     
+    if (ingredients.length === 0) {
+        alert('Please add ingredients before saving!');
+        return;
+    }
+
     fetch('/grocery-list/save-list', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `list_name=${encodeURIComponent(listName || '')}&` + 
+        body: `list_name=${encodeURIComponent(listName)}&` + 
               ingredients.map(i => `ingredients[]=${encodeURIComponent(i)}`).join('&')
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('List saved successfully!');
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show';
+            alert.innerHTML = `
+                List saved successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.querySelector('.container').prepend(alert);
         }
     });
 }

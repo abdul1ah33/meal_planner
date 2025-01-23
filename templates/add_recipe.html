@@ -1,45 +1,130 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Add New Recipe</h2>
-    
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    
-    <form method="POST" action="{{ url_for('meal_plan.add_recipe') }}">
-        <div class="form-group">
-            <label for="title">Recipe Title:</label>
-            <input type="text" id="title" name="title" class="form-control" required>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="h3 mb-4 text-success">
+                        <i class="bi bi-journal-plus me-2"></i>Add New Recipe
+                    </h2>
+                    
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST" class="needs-validation" novalidate>
+                        <div class="mb-4">
+                            <label for="title" class="form-label">Recipe Title</label>
+                            <input type="text" class="form-control form-control-lg" 
+                                   id="title" name="title" required
+                                   placeholder="e.g., Classic Omelette">
+                            <div class="invalid-feedback">
+                                Please provide a recipe title
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="meal_type" class="form-label">Meal Type</label>
+                            <select class="form-select form-select-lg" 
+                                    id="meal_type" name="meal_type" required>
+                                <option value="">Select meal type...</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" 
+                                      name="description" rows="3"
+                                      placeholder="A brief description of your recipe..."></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="ingredients" class="form-label">Ingredients</label>
+                            <textarea class="form-control" id="ingredients" 
+                                      name="ingredients" rows="5" required
+                                      placeholder="Enter ingredients separated by commas&#10;Example:&#10;Eggs, Milk, Cheese, Salt, Pepper"></textarea>
+                            <div class="form-text">Separate ingredients with commas</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('meal_plan.plan') }}" 
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" 
+                                    class="btn btn-success btn-lg px-5">
+                                <i class="bi bi-save me-2"></i>Save Recipe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        
-        <div class="form-group">
-            <label for="meal_type">Meal Type:</label>
-            <select id="meal_type" name="meal_type" required class="form-control">
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="description">Description (optional):</label>
-            <textarea id="description" name="description" class="form-control"></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="ingredients">Ingredients (comma-separated):</label>
-            <textarea id="ingredients" name="ingredients" required class="form-control"
-                      placeholder="Example: tomatoes, cheese, flour"></textarea>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Save Recipe</button>
-        <a href="{{ url_for('meal_plan.plan') }}" class="btn btn-secondary">Cancel</a>
-    </form>
+    </div>
 </div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 10px;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #198754;
+        box-shadow: 0 0 0 4px rgba(25,135,84,0.1);
+    }
+    
+    .card {
+        border-radius: 15px;
+    }
+    
+    label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn-success {
+        background: #198754;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-success:hover {
+        background: #157347;
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+// Bootstrap form validation
+(() => {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
 {% endblock %}
