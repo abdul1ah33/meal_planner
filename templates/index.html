@@ -1,40 +1,138 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="text-center my-5">
-    <h1 class="display-4">Welcome to the Meal Planner!</h1>
-    <p class="lead">Plan your meals for the week and generate a grocery list in just a few clicks.</p>
-    <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-lg mt-3">Get Started</a>
-</div>
+<!-- Hero Section -->
+<section class="bg-light py-5 text-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Plan Your Meals, Simplify Your Life</h1>
+                <p class="lead animate__animated animate__fadeInUp">Meal Planner helps you organize your meals, save time, and eat healthier. Start planning today!</p>
+                <a href="{{ url_for('auth.signup') }}" class="btn btn-success btn-lg animate__animated animate__pulse animate__infinite">
+                    <i class="bi bi-person-plus me-1"></i>Get Started
+                </a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/Plan Your Meals_Simplify Your Life.jpeg') }}" alt="Meal Planner" class="img-fluid rounded animate__animated animate__fadeInRight">
+            </div>
+        </div>
+    </div>
+</section>
 
-<!-- Optional Features Section -->
-<div class="row text-center mt-5">
-    <div class="col-md-4">
-        <div class="card border-0">
-            <img src="{{ url_for('static', filename='images/mealplanner.png') }}" alt="Meal Planning" class="card-img-top rounded">
-            <div class="card-body">
-                <h5 class="card-title">Easy Meal Planning</h5>
-                <p class="card-text">Organize your meals for the week effortlessly with our intuitive planner.</p>
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 animate__animated animate__fadeIn">Why Choose Meal Planner?</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInLeft">
+                    <img src="{{ url_for('static', filename='images/mealplanner.png') }}" alt="Meal Planning" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Easy Meal Planning</h5>
+                        <p class="card-text">Organize your meals for the week effortlessly with our intuitive planner.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInUp">
+                    <img src="{{ url_for('static', filename='images/Grocery List.png') }}" alt="Grocery List" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Grocery List Generator</h5>
+                        <p class="card-text">Create a complete grocery list based on your meal plan with one click.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInRight">
+                    <img src="{{ url_for('static', filename='images/Healthy Recipes.png') }}" alt="Healthy Recipes" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Healthy Recipes</h5>
+                        <p class="card-text">Access a wide variety of healthy and delicious recipes to suit your diet.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card border-0">
-            <img src="{{ url_for('static', filename='images/Grocery List.png') }}" alt="Grocery List" class="card-img-top rounded">
-            <div class="card-body">
-                <h5 class="card-title">Grocery List Generator</h5>
-                <p class="card-text">Create a complete grocery list based on your meal plan with one click.</p>
+</section>
+
+<!-- How It Works Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 animate__animated animate__fadeIn">How It Works</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInLeft">
+                    <img src="{{ url_for('static', filename='images/Plan_Your_Meals.jpeg') }}" alt="Step 1" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">1. Plan Your Meals</h5>
+                        <p class="card-text">Choose from a variety of recipes and plan your meals for the week.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInUp">
+                    <img src="{{ url_for('static', filename='images/generate_Grocery_List.jpeg') }}" alt="Step 2" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">2. Generate Grocery List</h5>
+                        <p class="card-text">Automatically generate a grocery list based on your meal plan.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInRight">
+                    <img src="{{ url_for('static', filename='images/enjoy_Your_Meals.jpeg') }}" alt="Step 3" class="card-img-top rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">3. Enjoy Your Meals</h5>
+                        <p class="card-text">Cook delicious meals and enjoy a stress-free week!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card border-0">
-            <img src="{{ url_for('static', filename='images/Healthy Recipes.png') }}" alt="Healthy Recipes" class="card-img-top rounded">
-            <div class="card-body">
-                <h5 class="card-title">Healthy Recipes</h5>
-                <p class="card-text">Access a wide variety of healthy and delicious recipes to suit your diet.</p>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 animate__animated animate__fadeIn">What Our Users Say</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInLeft">
+                    <div class="card-body">
+                        <p class="card-text">"Meal Planner has made my life so much easier! I love how simple it is to plan my meals and generate a grocery list."</p>
+                        <h5 class="card-title">- Sarah L.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        <p class="card-text">"I’ve been using Meal Planner for months, and it’s completely changed the way I cook. Highly recommend!"</p>
+                        <h5 class="card-title">- John D.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm animate__animated animate__fadeInRight">
+                    <div class="card-body">
+                        <p class="card-text">"The recipes are amazing, and the grocery list feature saves me so much time. Love it!"</p>
+                        <h5 class="card-title">- Emily R.</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<section class="py-5" style="background: linear-gradient(135deg, #198754, #28a745);">
+    <div class="container text-center">
+        <h2 class="text-white animate__animated animate__fadeInDown">Ready to Simplify Your Life?</h2>
+        <p class="lead text-white mb-4 animate__animated animate__fadeInUp">Join thousands of users who are already enjoying stress-free meal planning.</p>
+        <a href="{% if session.get('user_id') %}{{ url_for('meal_plan.plan') }}{% else %}{{ url_for('auth.signup') }}{% endif %}" 
+           class="btn btn-light btn-lg animate__animated animate__pulse animate__infinite" 
+           style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <i class="bi bi-person-plus me-1"></i>Get Started
+        </a>
+    </div>
+</section>
 {% endblock %}
