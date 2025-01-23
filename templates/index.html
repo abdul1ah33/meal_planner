@@ -8,7 +8,8 @@
             <div class="col-md-6">
                 <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Plan Your Meals, Simplify Your Life</h1>
                 <p class="lead animate__animated animate__fadeInUp">Meal Planner helps you organize your meals, save time, and eat healthier. Start planning today!</p>
-                <a href="{{ url_for('auth.signup') }}" class="btn btn-success btn-lg animate__animated animate__pulse animate__infinite">
+                <a href="{% if session.get('user_id') %}{{ url_for('meal_plan.plan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" 
+                   class="btn btn-success btn-lg animate__animated animate__pulse animate__infinite">
                     <i class="bi bi-person-plus me-1"></i>Get Started
                 </a>
             </div>
@@ -71,7 +72,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card border-0 shadow-sm animate__animated animate__fadeInUp">
-                    <img src="{{ url_for('static', filename='images/generate_Grocery_List.jpeg') }}" alt="Step 2" class="card-img-top rounded">
+                    <img src="{{ url_for('static', filename='images/Generate_Grocery_List.jpeg') }}" alt="Step 2" class="card-img-top rounded">
                     <div class="card-body">
                         <h5 class="card-title">2. Generate Grocery List</h5>
                         <p class="card-text">Automatically generate a grocery list based on your meal plan.</p>
@@ -80,7 +81,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card border-0 shadow-sm animate__animated animate__fadeInRight">
-                    <img src="{{ url_for('static', filename='images/enjoy_Your_Meals.jpeg') }}" alt="Step 3" class="card-img-top rounded">
+                    <img src="{{ url_for('static', filename='images/Enjoy_Your_Meals.jpeg') }}" alt="Step 3" class="card-img-top rounded">
                     <div class="card-body">
                         <h5 class="card-title">3. Enjoy Your Meals</h5>
                         <p class="card-text">Cook delicious meals and enjoy a stress-free week!</p>
@@ -128,7 +129,7 @@
     <div class="container text-center">
         <h2 class="text-white animate__animated animate__fadeInDown">Ready to Simplify Your Life?</h2>
         <p class="lead text-white mb-4 animate__animated animate__fadeInUp">Join thousands of users who are already enjoying stress-free meal planning.</p>
-        <a href="{% if session.get('user_id') %}{{ url_for('meal_plan.plan') }}{% else %}{{ url_for('auth.signup') }}{% endif %}" 
+        <a href="{% if session.get('user_id') %}{{ url_for('meal_plan.plan') }}{% else %}{{ url_for('auth.login') }}{% endif %}" 
            class="btn btn-light btn-lg animate__animated animate__pulse animate__infinite" 
            style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
             <i class="bi bi-person-plus me-1"></i>Get Started

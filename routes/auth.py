@@ -9,6 +9,8 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:  # Add this check
+        return redirect(url_for('meal_plan.plan'))
     """Handle user login"""
     if request.method == 'POST':
         email = request.form.get('email')
@@ -27,6 +29,8 @@ def login():
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if 'user_id' in session:  # Add this check
+        return redirect(url_for('meal_plan.plan'))
     """Handle user registration"""
     if request.method == 'POST':
         email = request.form.get('email')
