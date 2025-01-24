@@ -4,12 +4,11 @@ from models import db, User
 from models.recipe import Recipe
 from utils.default_recipes import default_recipes
 
-# Create the blueprint with a name that matches the URL prefix
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'user_id' in session:  # Add this check
+    if 'user_id' in session:
         return redirect(url_for('meal_plan.plan'))
     """Handle user login"""
     if request.method == 'POST':
@@ -29,7 +28,7 @@ def login():
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if 'user_id' in session:  # Add this check
+    if 'user_id' in session:
         return redirect(url_for('meal_plan.plan'))
     """Handle user registration"""
     if request.method == 'POST':
@@ -61,8 +60,8 @@ def signup():
                     title=recipe_data["title"],
                     description=recipe_data["description"],
                     ingredients=recipe_data["ingredients"],
-                    meal_type=recipe_data["meal_type"],  # Make sure meal_type is included
-                    user_id=new_user.id
+                    meal_type=recipe_data["meal_type"],  
+                    user_id=new_user.idi
                 )
                 db.session.add(recipe)
 
@@ -85,7 +84,7 @@ def logout():
     flash('You have been logged out', 'info')
     return redirect(url_for('main.index'))
 
-# Optional: Protection decorator for routes that require login
+
 from functools import wraps
 from flask import abort
 

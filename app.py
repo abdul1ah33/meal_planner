@@ -25,8 +25,8 @@ migrate = Migrate(app, db)
 # Import blueprints
 from routes.auth import auth_bp
 from routes.main import main_bp
-from routes.meal_plan import meal_plan_bp  # Import the meal_plan blueprint
-from routes.grocery_list import grocery_list_bp  # Import the grocery_list blueprint
+from routes.meal_plan import meal_plan_bp
+from routes.grocery_list import grocery_list_bp
 from routes.feedback import feedback_bp
 
 # Register blueprints
