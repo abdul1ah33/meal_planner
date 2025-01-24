@@ -31,7 +31,6 @@
         <img src="{{ url_for('static', filename='images/loading.png') }}" alt="Loading...">
     </div>
 
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
@@ -52,6 +51,11 @@
                         <li class="nav-item">
                             <a class="nav-link {% if request.endpoint == 'meal_plan.plan' %}active{% endif %}" href="{{ url_for('meal_plan.plan') }}">
                                 <i class="bi bi-calendar-check me-1"></i>Meal Plan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'grocery_list.view_saved_lists' %}active{% endif %}" href="{{ url_for('grocery_list.view_saved_lists') }}">
+                                <i class="bi bi-archive me-1"></i>Saved Lists
                             </a>
                         </li>
                         <li class="nav-item">
